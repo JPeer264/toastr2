@@ -2342,8 +2342,9 @@
       };
       return ProgressBar;
   }());
+  //# sourceMappingURL=ProgressBar.js.map
 
-  var version = "3.0.0-alpha.7";
+  var version = "3.0.0-alpha.8";
 
   var Toastr = /** @class */ (function () {
       function Toastr(options) {
@@ -2400,7 +2401,6 @@
           };
           this.$container = document.createElement('div');
           this.options = merge_1({}, this.options, options);
-          this.createContainer();
       }
       Toastr.prototype.createContainer = function () {
           this.$container = document.createElement('div');

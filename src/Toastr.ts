@@ -134,7 +134,6 @@ class Toastr {
   public constructor(options?: ToastrOptions) {
     this.options = merge({}, this.options, options);
 
-    this.createContainer();
   }
 
   public createContainer(): HTMLElement {

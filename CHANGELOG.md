@@ -1,3 +1,11 @@
+3.0.0-alpha.13 - March, 04 2020
+
+* 2be561f Fix license in package.json (#4) (Matthias Schiebel)
+* c37143d Chore: update node-sass for node v12 (JPeer264)
+* 97b8b72 Chore: update readme with new docs (JPeer264)
+* ae204c8 Chore: drop node v8 and use v10 and v12 (JPeer264)
+* 99a83bf Chore: use .flat shim for node v10 (JPeer264)
+
 3.0.0-alpha.12 - February, 23 2020
 
 * 3e2bef0 Fix: add more cases with string[] to add classes (ref #3) (JPeer264)

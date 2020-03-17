@@ -1,10 +1,11 @@
 # toastr2
 
+[![Build Status](https://travis-ci.com/JPeer264/toastr2.svg?branch=master)](https://travis-ci.com/JPeer264/toastr2)
+[![Coverage Status](https://coveralls.io/repos/github/JPeer264/toastr2/badge.svg?branch=master)](https://coveralls.io/github/JPeer264/toastr2?branch=master)
+
 > Note: this is a fork of [toastr](https://github.com/CodeSeven/toastr). This library is made to use it without jQuery and with Typescript
 
 **toastr** is a Javascript library for non-blocking notifications The goal is to create a simple core library that can be customized and extended.
-
-[![Build Status](https://travis-ci.com/JPeer264/toastr.svg?branch=master)](https://travis-ci.com/JPeer264/toastr)
 
 ## Demo
 - Demo can be found at https://jpeer264.github.io/toastr2/demo.html

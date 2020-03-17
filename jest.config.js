@@ -5,7 +5,7 @@ module.exports = {
     '/node_modules/',
   ],
   moduleNameMapper: {
-    '\\.(scss)$': '<rootDir>/styleMock.ts',
+    '\\.(scss)$': '<rootDir>/__tests__/styleMock.ts',
   },
   moduleFileExtensions: [
     'js',
@@ -15,9 +15,9 @@ module.exports = {
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
-  rootDir: '__tests__',
-  modulePaths: [
-    '<rootDir>',
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/__tests__/',
   ],
   globals: {
     'ts-jest': {

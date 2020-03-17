@@ -90,7 +90,7 @@
     "fix": "npm run lint -- --fix",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest --coverage",
-    "coveralls": "cat ./__tests__/coverage/lcov.info | coveralls",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "demo": "parcel ./demo/index.html"
   }
 }

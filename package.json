@@ -68,6 +68,7 @@
     "lint-staged": "^10.0.7",
     "lodash.camelcase": "^4.3.0",
     "node-sass": "^4.13.1",
+    "parcel": "^1.12.4",
     "rollup": "^1.1.2",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
@@ -87,6 +88,7 @@
     "lint": "eslint \"./src/**/*.ts\"",
     "fix": "npm run lint -- --fix",
     "start": "rollup -c rollup.config.ts -w",
-    "test": "jest"
+    "test": "jest",
+    "demo": "parcel ./demo/index.html"
   }
 }

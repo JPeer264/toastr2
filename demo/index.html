@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>toastr2 examples</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link href="../src/toastr.scss" rel="stylesheet" type="text/css" />
+  <style>
+    .row {
+      margin-left: 0;
+    }
+  </style>
+</head>
+
+<body class="container">
+  <section class="row">
+    <h1>toastr2</h1>
+
+    <form id="toastForm">
+      <div class="well row">
+        <div class="row">
+          <div class="span4">
+            <div class="control-group">
+              <div class="controls">
+                <label class="control-label" for="title">Title</label>
+                <input
+                  name="title"
+                  type="text"
+                  class="input-large"
+                  placeholder="Enter a title ..."
+                />
+                <label class="control-label" for="message">Message</label>
+                <textarea class="input-large" name="message" id="message" rows="3" placeholder="Enter a message ..."></textarea>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="controls">
+                <label class="checkbox" for="closeButton">
+                  <input
+                    id="closeButton"
+                    name="closeButton"
+                    type="checkbox"
+                    value="checked"
+                    class="input-mini"
+                  />
+                  Close Button
+                </label>
+              </div>
+
+              <div class="controls">
+                <label class="checkbox" for="addBehaviorOnToastClick">
+                  <input name="addBehaviorOnToastClick" id="addBehaviorOnToastClick" type="checkbox" value="checked" class="input-mini" />Add behavior on
+                  toast click
+                </label>
+              </div>
+
+              <div class="controls">
+                <label class="checkbox" for="addBehaviorOnToastCloseClick">
+                  <input disabled name="addBehaviorOnToastCloseClick" id="addBehaviorOnToastCloseClick" type="checkbox" value="checked"
+                    class="input-mini" />Add behavior on toast close button click
+                </label>
+              </div>
+
+              <div class="controls">
+                <label class="checkbox" for="debugInfo">
+                  <input name="debugInfo" id="debugInfo" type="checkbox" value="checked" class="input-mini" />Debug
+                </label>
+              </div>
+
+              <div class="controls">
+                <label class="checkbox" for="progressBar">
+                  <input name="progressBar" id="progressBar" type="checkbox" value="checked" class="input-mini" />Progress Bar
+                </label>
+              </div>
+
+              <div class="controls">
+                <label class="checkbox" for="rtl">
+                  <input name="rtl" id="rtl" type="checkbox" value="checked" class="input-mini" />Right-To-Left
+                </label>
+              </div>
+
+              <div class="controls">
+                <label class="checkbox" for="preventDuplicates">
+                  <input name="preventDuplicates" id="preventDuplicates" type="checkbox" value="checked" class="input-mini" />Prevent Duplicates
+                </label>
+              </div>
+
+              <div class="controls">
+                <label class="checkbox" for="addClear">
+                  <input name="addClear" id="addClear" type="checkbox" value="checked" class="input-mini" />Add button to force clearing a
+                  toast, ignoring focus
+                </label>
+              </div>
+
+              <div class="controls">
+                <label class="checkbox" for="newestOnTop">
+                  <input name="newestOnTop" id="newestOnTop" type="checkbox" value="checked" class="input-mini" />Newest on top
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="span2">
+            <div class="control-group">
+              <div class="controls">
+                <label>Toast Type</label>
+                <label class="radio">
+                  <input type="radio" name="toastTypeGroup" value="success" checked />Success
+                </label>
+                <label class="radio">
+                  <input type="radio" name="toastTypeGroup" value="info" />Info
+                </label>
+                <label class="radio">
+                  <input type="radio" name="toastTypeGroup" value="warning" />Warning
+                </label>
+                <label class="radio">
+                  <input type="radio" name="toastTypeGroup" value="error" />Error
+                </label>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="controls">
+                <label>Position</label>
+
+                <label class="radio">
+                  <input type="radio" name="positionGroup" value="toast-top-right" checked />Top Right
+                </label>
+                <label class="radio">
+                  <input type="radio" name="positionGroup" value="toast-bottom-right" />Bottom Right
+                </label>
+                <label class="radio">
+                  <input type="radio" name="positionGroup" value="toast-bottom-left" />Bottom Left
+                </label>
+                <label class="radio">
+                  <input type="radio" name="positionGroup" value="toast-top-left" />Top Left
+                </label>
+                <label class="radio">
+                  <input type="radio" name="positionGroup" value="toast-top-full-width" />Top Full Width
+                </label>
+                <label class="radio">
+                  <input type="radio" name="positionGroup" value="toast-bottom-full-width" />Bottom Full Width
+                </label>
+                <label class="radio">
+                  <input type="radio" name="positionGroup" value="toast-top-center" />Top Center
+                </label>
+                <label class="radio">
+                  <input type="radio" name="positionGroup" value="toast-bottom-center" />Bottom Center
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="span2">
+            <div class="control-group">
+              <div class="controls">
+                <label class="control-label" for="showEasing">Show Easing</label>
+                <input id="showEasing" type="text" placeholder="swing, linear" class="input-mini" value="swing" />
+
+                <label class="control-label" for="hideEasing">Hide Easing</label>
+                <input id="hideEasing" type="text" placeholder="swing, linear" class="input-mini" value="linear" />
+
+                <label class="control-label" for="showMethod">Show Method</label>
+                <input id="showMethod" type="text" placeholder="show, fadeIn, slideDown" class="input-mini"
+                  value="fadeIn" />
+
+                <label class="control-label" for="hideMethod">Hide Method</label>
+                <input id="hideMethod" type="text" placeholder="hide, fadeOut, slideUp" class="input-mini"
+                  value="fadeOut" />
+              </div>
+            </div>
+          </div>
+
+          <div class="span3">
+            <div class="control-group">
+              <div class="controls">
+                <label class="control-label" for="showDuration">Show Duration</label>
+                <input id="showDuration" type="number" placeholder="ms" class="input-mini" value="300" />
+
+                <label class="control-label" for="hideDuration">Hide Duration</label>
+                <input id="hideDuration" type="number" placeholder="ms" class="input-mini" value="1000" />
+
+                <label class="control-label" for="timeOut">Time out</label>
+                <input id="timeOut" type="number" placeholder="ms" class="input-mini" value="5000" />
+
+                <label class="control-label" for="extendedTimeOut">Extended time out</label>
+                <input id="extendedTimeOut" type="number" placeholder="ms" class="input-mini" value="1000" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <button type="submit" class="btn btn-primary" id="showtoast">Show Toast</button>
+          <button type="button" class="btn btn-danger" id="cleartoasts">Clear Toasts</button>
+          <button type="button" class="btn btn-danger" id="clearlasttoast">Clear Last Toast</button>
+        </div>
+
+        <div class="row" style='margin-top: 25px;'>
+          <pre id='toastrOptions'></pre>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <footer class="row">
+    <h2>Links</h2>
+
+    <ul>
+      <li><a href="https://github.com/JPeer264/toastr2">GitHub</a></li>
+    </ul>
+  </footer>
+
+  <script src="./index.ts"></script>
+</body>
+
+</html>

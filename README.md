@@ -9,20 +9,6 @@
 
 ## Demo
 - Demo can be found at https://jpeer264.github.io/toastr2/demo.html
-- [Demo using FontAwesome icons with toastr](http://plnkr.co/edit/6W9URNyyp2ItO4aUWzBB?p=preview)
-
-## CDNs
-[![cdnjs](https://img.shields.io/cdnjs/v/toastr.js.svg)](https://cdnjs.com/libraries/toastr.js)
-[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/toastr2/badge)](https://www.jsdelivr.com/package/npm/toastr2)
-
-Toastr is hosted at cdnjs and jsdelivr
-
-#### Debug
-- [//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css](//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css)
-
-#### Minified
-- [//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js](//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js)
-- [//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css](//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css)
 
 ## Install
 

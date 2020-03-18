@@ -52,9 +52,9 @@ export type ToastrOptions<T = ToastType> = {
   preventDuplicates?: boolean;
   progressBar?: boolean;
   progressClass?: string | string[];
-  onclick?: () => void;
+  onclick?: (event: MouseEvent) => void;
 
-  onCloseClick?: () => void;
+  onCloseClick?: (event: Event) => void;
   closeButton?: boolean;
   rtl?: boolean;
 }
@@ -153,8 +153,8 @@ class Toastr {
     return this.$container;
   }
 
-  public getContainer(options: any = this.options, create: any = null): HTMLElement {
-    const $container = document.getElementById(options.containerId);
+  public getContainer(options: Partial<ToastrOptions> = this.options, create = false): HTMLElement {
+    const $container = document.getElementById(options.containerId || '');
 
     if ($container) {
       this.$container = $container;
@@ -229,7 +229,7 @@ class Toastr {
     this.listener = callback;
   }
 
-  public publish(args: any): void {
+  public publish(args: Toastr): void {
     if (!this.listener) {
       return;
     }
@@ -237,17 +237,17 @@ class Toastr {
     this.listener(args);
   }
 
-  public clear($toastElement?: any, clearOptions?: any) {
+  public clear(toastElement?: HTMLElement, clearOptions?: any) {
     if (!this.$container) {
       this.getContainer(this.options);
     }
 
-    if (!this.clearToast($toastElement, this.options, clearOptions)) {
+    if (!this.clearToast(toastElement, this.options, clearOptions)) {
       this.clearContainer(this.options);
     }
   }
 
-  public remove($toastElement: any) {
+  public remove(toastElement: HTMLElement) {
     if (!this.$container) {
       this.getContainer(this.options);
     }
@@ -256,8 +256,8 @@ class Toastr {
       return;
     }
 
-    if ($toastElement && $toastElement !== document.activeElement) {
-      this.removeToast($toastElement);
+    if (toastElement && toastElement !== document.activeElement) {
+      this.removeToast(toastElement);
 
       return;
     }
@@ -271,25 +271,25 @@ class Toastr {
     }
   }
 
-  public removeToast($toastElement: any) {
+  public removeToast(toastElement: HTMLElement) {
     if (!this.$container) {
       this.getContainer();
     }
 
-    if (!this.$container) {
+    if (!this.$container || !toastElement.parentNode) {
       return;
     }
 
     // todo set after visible state
     // as this will be a transition of css
-    $toastElement.parentNode.removeChild($toastElement);
+    toastElement.parentNode.removeChild(toastElement);
     // check if visible
-    if ($toastElement.offsetWidth > 0 && $toastElement.offsetHeight > 0) {
+    if (toastElement.offsetWidth > 0 && toastElement.offsetHeight > 0) {
       return;
     }
 
     // todo check if null makes sense
-    // $toastElement = null;
+    // toastElement = null;
 
     if (!this.$container.hasChildNodes()) {
       if (this.$container.parentNode) {
@@ -300,12 +300,12 @@ class Toastr {
     }
   }
 
-  private clearContainer(options: any) {
+  private clearContainer(options: Partial<ToastrOptions> = this.options) {
     if (!this.$container) {
       return;
     }
 
-    const toastsToClear = this.$container.childNodes;
+    const toastsToClear = Array.from(this.$container.childNodes) as HTMLElement[];
 
     for (let i = toastsToClear.length - 1; i >= 0; i -= 1) {
       this.clearToast(toastsToClear[i], options);
@@ -313,19 +313,24 @@ class Toastr {
   }
 
   private clearToast(
-    $toastElement: any,
+    toastElement?: HTMLElement,
     // eslint-disable-next-line no-unused-vars
-    options: any = this.options,
-    clearOptions: any = null,
+    options: Partial<ToastrOptions> = this.options,
+    clearOptions: { force?: boolean } = {},
   ): boolean {
-    const force = clearOptions && clearOptions.force ? clearOptions.force : false;
-    if ($toastElement && (force || $toastElement !== document.activeElement)) {
+    if (!toastElement) {
+      return false;
+    }
+
+    const force = clearOptions.force || false;
+
+    if (toastElement && (force || toastElement !== document.activeElement)) {
       // todo hide effect
-      this.removeToast($toastElement);
-      // $toastElement[options.hideMethod]({
+      this.removeToast(toastElement);
+      // toastElement[options.hideMethod]({
       //     duration: options.hideDuration,
       //     easing: options.hideEasing,
-      //     complete: function () { removeToast($toastElement); }
+      //     complete: function () { removeToast(toastElement); }
       // });
       return true;
     }
@@ -361,14 +366,14 @@ class Toastr {
 
     this.$container = this.getContainer(options, true);
 
-    let intervalId: any = null;
+    let intervalId: NodeJS.Timeout | null = null;
     let progressBar: null | ProgressBar = null;
-    const $toastElement = document.createElement('div');
+    const toastElement = document.createElement('div');
     const $titleElement = document.createElement('div');
     const $messageElement = document.createElement('div');
     const createdElement = document.createElement('div');
     createdElement.innerHTML = options.closeHtml.trim();
-    const $closeElement: any = createdElement.firstChild;
+    const closeElement = createdElement.firstChild as HTMLElement | null;
 
     const response: any = {
       toastId: this.toastId,
@@ -392,7 +397,7 @@ class Toastr {
       //   ? this.options.closeEasing
       //   : this.options.hideEasing;
 
-      if ($toastElement === document.activeElement && !override) {
+      if (toastElement === document.activeElement && !override) {
         return;
       }
 
@@ -401,9 +406,11 @@ class Toastr {
       }
 
       // todo fade out toast
-      this.removeToast($toastElement);
+      this.removeToast(toastElement);
 
-      clearTimeout(intervalId);
+      if (intervalId) {
+        clearTimeout(intervalId);
+      }
 
       if (options.onHidden && response.state !== 'hidden') {
         options.onHidden();
@@ -413,13 +420,13 @@ class Toastr {
       response.endTime = new Date();
       this.publish(response);
 
-      // return $toastElement[method]({
+      // return toastElement[method]({
       //     duration: duration,
       //     easing: easing,
       // });
     };
 
-    const escapeHtml = (source: any): string => {
+    const escapeHtml = (source: string | null): string => {
       const newSource = source !== null ? source : '';
 
       return newSource
@@ -440,7 +447,7 @@ class Toastr {
         default:
           ariaValue = 'assertive';
       }
-      $toastElement.setAttribute('aria-live', ariaValue);
+      toastElement.setAttribute('aria-live', ariaValue);
     };
 
     const delayedHideToast = (): void => {
@@ -455,29 +462,31 @@ class Toastr {
     };
 
     const stickAround = (): void => {
-      clearTimeout(intervalId);
+      if (intervalId) {
+        clearTimeout(intervalId);
+      }
 
       if (progressBar) {
         progressBar.stop();
       }
       // todo
-      // $toastElement.stop(true, true)[options.showMethod](
+      // toastElement.stop(true, true)[options.showMethod](
       //     {duration: options.showDuration, easing: options.showEasing}
       // );
     };
 
     const handleEvents = (): void => {
       if (options.closeOnHover) {
-        $toastElement.addEventListener('mouseover', () => stickAround());
-        $toastElement.addEventListener('mouseout', () => delayedHideToast());
+        toastElement.addEventListener('mouseover', () => stickAround());
+        toastElement.addEventListener('mouseout', () => delayedHideToast());
       }
 
       if (!options.onclick && options.tapToDismiss) {
-        $toastElement.addEventListener('click', hideToast);
+        toastElement.addEventListener('click', hideToast);
       }
 
-      if (options.closeButton && $closeElement) {
-        $closeElement.addEventListener('click', (event: any) => {
+      if (options.closeButton && closeElement) {
+        closeElement.addEventListener('click', (event) => {
           if (event.stopPropagation) {
             event.stopPropagation();
           } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
@@ -494,7 +503,7 @@ class Toastr {
       }
 
       if (options.onclick) {
-        $toastElement.addEventListener('click', (event) => {
+        toastElement.addEventListener('click', (event) => {
           // ts needs another check here
           if (options.onclick) {
             options.onclick(event);
@@ -513,7 +522,7 @@ class Toastr {
         }
         $titleElement.innerHTML = suffix;
         addClasses($titleElement, options.titleClass);
-        $toastElement.appendChild($titleElement);
+        toastElement.appendChild($titleElement);
       }
     };
 
@@ -527,33 +536,33 @@ class Toastr {
 
         $messageElement.innerHTML = suffix;
         addClasses($messageElement, options.messageClass);
-        $toastElement.appendChild($messageElement);
+        toastElement.appendChild($messageElement);
       }
     };
 
     const setCloseButton = (): void => {
-      if (options.closeButton) {
-        addClasses($closeElement, options.closeClass);
-        $closeElement.setAttribute('role', 'button');
-        $toastElement.insertBefore($closeElement, $toastElement.firstChild);
+      if (options.closeButton && closeElement) {
+        addClasses(closeElement, options.closeClass);
+        closeElement.setAttribute('role', 'button');
+        toastElement.insertBefore(closeElement, toastElement.firstChild);
       }
     };
 
     const setProgressBar = (): void => {
       if (options.progressBar) {
-        progressBar = new ProgressBar($toastElement, options.progressClass);
+        progressBar = new ProgressBar(toastElement, options.progressClass);
       }
     };
 
     const setRTL = (): void => {
       if (options.rtl) {
-        addClasses($toastElement, 'rtl');
+        addClasses(toastElement, 'rtl');
       }
     };
 
     const setIcon = (): void => {
       if (iconClass) {
-        addClasses($toastElement, options.toastClass, iconClass);
+        addClasses(toastElement, options.toastClass, iconClass);
       }
     };
 
@@ -563,21 +572,21 @@ class Toastr {
       }
 
       if (options.newestOnTop) {
-        this.$container.insertBefore($toastElement, this.$container.firstChild);
+        this.$container.insertBefore(toastElement, this.$container.firstChild);
       } else {
-        this.$container.appendChild($toastElement);
+        this.$container.appendChild(toastElement);
       }
     };
 
     const displayToast = (): void => {
       // todo hide toast
-      // $toastElement.hide();
+      // toastElement.hide();
 
       // todo fade out toast
       if (options.onShown) {
         options.onShown();
       }
-      // $toastElement[options.showMethod](
+      // toastElement[options.showMethod](
       // eslint-disable-next-line
       //     {duration: options.showDuration, easing: options.showEasing, complete: options.onShown}
       // );
@@ -615,7 +624,7 @@ class Toastr {
       console.log(response);
     }
 
-    return $toastElement;
+    return toastElement;
   }
 }
 

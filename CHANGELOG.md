@@ -1,3 +1,15 @@
+3.0.0-alpha.14 - March, 18 2020
+
+* dc5d8f4 Test: add comment on skipped test (JPeer264)
+* 16a79e2 Test: add tests for remove and clear (JPeer264)
+* e4b3bba Test: add tests for debug (JPeer264)
+* e1c10ae Chore: update typings (JPeer264)
+* 34322dc Chore: update types for functions (JPeer264)
+* 3a82472 Chore: fix coverage (JPeer264)
+* 19956e0 Docs: remove cdns (JPeer264)
+* 3802d60 Chore: add coveralls and badges (JPeer264)
+* 177f1e2 Docs: update demo with npm script (JPeer264)
+
 3.0.0-alpha.13 - March, 04 2020
 
 * 2be561f Fix license in package.json (#4) (Matthias Schiebel)

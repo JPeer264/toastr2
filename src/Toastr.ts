@@ -27,11 +27,11 @@ export type ToastrOptions<T = ToastType> = {
   showMethod?: 'fadeIn' | 'slideDown' | 'show';
   showDuration?: number;
   showEasing?: 'swing' | 'linear';
-  onShown?: Function;
+  onShown?: () => void;
   hideMethod?: 'fadeOut';
   hideDuration?: number;
   hideEasing?: 'swing';
-  onHidden?: Function;
+  onHidden?: () => void;
   closeMethod?: boolean;
   closeDuration?: number | false;
   closeEasing?: boolean;
@@ -52,9 +52,9 @@ export type ToastrOptions<T = ToastType> = {
   preventDuplicates?: boolean;
   progressBar?: boolean;
   progressClass?: string | string[];
-  onclick?: Function;
+  onclick?: () => void;
 
-  onCloseClick?: Function;
+  onCloseClick?: () => void;
   closeButton?: boolean;
   rtl?: boolean;
 }

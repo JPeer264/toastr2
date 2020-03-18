@@ -237,7 +237,7 @@ class Toastr {
     this.listener(args);
   }
 
-  public clear(toastElement?: HTMLElement, clearOptions?: any) {
+  public clear(toastElement?: HTMLElement | null, clearOptions: { force?: boolean } = {}) {
     if (!this.$container) {
       this.getContainer(this.options);
     }
@@ -247,7 +247,7 @@ class Toastr {
     }
   }
 
-  public remove(toastElement: HTMLElement) {
+  public remove(toastElement?: HTMLElement | null) {
     if (!this.$container) {
       this.getContainer(this.options);
     }
@@ -313,7 +313,7 @@ class Toastr {
   }
 
   private clearToast(
-    toastElement?: HTMLElement,
+    toastElement?: HTMLElement | null,
     // eslint-disable-next-line no-unused-vars
     options: Partial<ToastrOptions> = this.options,
     clearOptions: { force?: boolean } = {},
@@ -571,10 +571,6 @@ class Toastr {
     };
 
     const setSequence = (): void => {
-      if (!this.$container) {
-        return;
-      }
-
       if (options.newestOnTop) {
         this.$container.insertBefore(toastElement, this.$container.firstChild);
       } else {

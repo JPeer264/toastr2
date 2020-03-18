@@ -51,6 +51,113 @@ describe('Toastr', () => {
     expect(successArrayString.className).toBe('one two toast-success');
   });
 
+  describe('clear', () => {
+    beforeEach(() => {
+      toastr.$container = undefined as any;
+      document.body.innerHTML = '<div id="my-div"></div>';
+      toastr.options.containerId = 'my-div';
+    });
+
+    it('should clear toast and container', () => {
+      const myToast = toastr.success();
+
+      toastr.clear(myToast);
+
+      expect(toastr.$container.innerHTML).toBe('');
+    });
+
+    it('should clear toast and container but leave one toast', () => {
+      const myToast = toastr.success('First Mesage');
+      const secondToast = toastr.success('My Message');
+      const thirdToast = toastr.success('My third Message');
+
+      toastr.clear(myToast);
+
+      expect(toastr.$container.innerHTML).not.toContain((myToast as HTMLDivElement).innerHTML);
+      expect(toastr.$container.innerHTML).toContain((secondToast as HTMLDivElement).innerHTML);
+      expect(toastr.$container.innerHTML).toContain((thirdToast as HTMLDivElement).innerHTML);
+
+      toastr.clear(secondToast);
+
+      expect(toastr.$container.innerHTML).not.toContain((myToast as HTMLDivElement).innerHTML);
+      expect(toastr.$container.innerHTML).not.toContain((secondToast as HTMLDivElement).innerHTML);
+      expect(toastr.$container.innerHTML).toContain((thirdToast as HTMLDivElement).innerHTML);
+
+      toastr.clear(thirdToast);
+
+      expect(toastr.$container.innerHTML).toBe('');
+    });
+
+    it('should clear all toasts when empty', () => {
+      toastr.success();
+      toastr.success();
+      toastr.success();
+      toastr.clear();
+
+      expect(toastr.$container.innerHTML).toBe('');
+    });
+
+    it('should clear container', () => {
+      toastr.success();
+      toastr.clear();
+
+      expect(toastr.$container.innerHTML).toBe('');
+    });
+
+    it('should create container after clear', () => {
+      expect(toastr.$container).toBe(undefined);
+      expect(toastr.clear.bind(toastr)).not.toThrow();
+      expect(toastr.$container).not.toBe(undefined);
+    });
+  });
+
+  describe('remove', () => {
+    beforeEach(() => {
+      toastr.$container = undefined as any;
+      document.body.innerHTML = '<div id="my-div"></div>';
+      toastr.options.containerId = 'my-div';
+    });
+
+    it('should not remove with undefied container and create container if undefined', () => {
+      expect(toastr.$container).toBe(undefined);
+
+      toastr.remove();
+
+      expect(toastr.$container).not.toBe(undefined);
+    });
+
+    it('should not remove with undefied container and leave container undefined', () => {
+      toastr.options.containerId = 'not-existing-div';
+
+      expect(toastr.$container).toBe(undefined);
+
+      toastr.remove();
+
+      expect(toastr.$container).toBe(undefined);
+    });
+
+    it('should remove a toast', () => {
+      const myToast = toastr.success('My message');
+      const secondToast = toastr.success('My second message');
+
+      toastr.remove(myToast);
+
+      expect(toastr.$container.innerHTML).not.toContain((myToast as HTMLElement).innerHTML);
+      expect(toastr.$container.innerHTML).toContain((secondToast as HTMLElement).innerHTML);
+    });
+
+    it.skip('should not remove an active toast', () => {
+      const myToast = toastr.success('My message');
+      const secondToast = toastr.success('My second message');
+
+      (myToast as HTMLElement).focus();
+      toastr.remove(myToast);
+
+      expect(toastr.$container.innerHTML).toContain((myToast as HTMLElement).innerHTML);
+      expect(toastr.$container.innerHTML).toContain((secondToast as HTMLElement).innerHTML);
+    });
+  });
+
   ([
     'info',
     'warning',

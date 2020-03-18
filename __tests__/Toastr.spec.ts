@@ -146,6 +146,7 @@ describe('Toastr', () => {
       expect(toastr.$container.innerHTML).toContain((secondToast as HTMLElement).innerHTML);
     });
 
+    // currently there is no way to focus the toast
     it.skip('should not remove an active toast', () => {
       const myToast = toastr.success('My message');
       const secondToast = toastr.success('My second message');

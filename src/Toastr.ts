@@ -439,14 +439,18 @@ class Toastr {
 
     const setAria = (): void => {
       let ariaValue = '';
+
       switch (iconClass) {
         case 'toast-success':
         case 'toast-info':
           ariaValue = 'polite';
+
           break;
+
         default:
           ariaValue = 'assertive';
       }
+
       toastElement.setAttribute('aria-live', ariaValue);
     };
 
@@ -621,6 +625,7 @@ class Toastr {
     this.publish(response);
 
     if (options.debug && console) {
+      // eslint-disable-next-line no-console
       console.log(response);
     }
 

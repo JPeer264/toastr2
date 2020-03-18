@@ -226,6 +226,66 @@ describe('Toastr', () => {
     });
   });
 
+  describe('debug', () => {
+    beforeEach(() => {
+      // eslint-disable-next-line no-console
+      console.log = jest.fn();
+    });
+
+    it('should not call debug', () => {
+      toastr.options.debug = false;
+
+      toastr.success();
+
+      // eslint-disable-next-line no-console
+      expect(console.log).not.toBeCalled();
+
+      toastr.success();
+      toastr.success();
+      toastr.success();
+
+      // eslint-disable-next-line no-console
+      expect(console.log).not.toBeCalled();
+    });
+
+    it('should call debug', () => {
+      toastr.options.debug = true;
+
+      toastr.success();
+
+      // eslint-disable-next-line no-console
+      expect(console.log).toBeCalled();
+
+      toastr.success();
+      toastr.success();
+      toastr.success();
+
+      // eslint-disable-next-line no-console
+      expect(console.log).toBeCalledTimes(4);
+    });
+
+    it('should mix debug', () => {
+      toastr.options.debug = true;
+
+      toastr.success();
+
+      // eslint-disable-next-line no-console
+      expect(console.log).toBeCalled();
+
+      toastr.options.debug = false;
+
+      toastr.success();
+      toastr.success();
+
+      toastr.options.debug = true;
+
+      toastr.success();
+
+      // eslint-disable-next-line no-console
+      expect(console.log).toBeCalledTimes(2);
+    });
+  });
+
   describe('event', () => {
     beforeEach(() => {
       toastr.options.closeButton = false;

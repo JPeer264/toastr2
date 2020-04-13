@@ -1,3 +1,8 @@
+3.0.0-alpha.15 - April, 13 2020
+
+* 3915ff1 Docs: forgot ' in usage import (JPeer264)
+* bda5794 Chore: ignore more folders for npm to reduce download size (JPeer264)
+
 3.0.0-alpha.14 - March, 18 2020
 
 * dc5d8f4 Test: add comment on skipped test (JPeer264)

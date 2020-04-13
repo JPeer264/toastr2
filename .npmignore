@@ -2,5 +2,9 @@ node_modules
 __tests__
 .vscode
 docs
+demo
 tests
 .rpt2_cache
+.cache
+coverage
+src

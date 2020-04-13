@@ -41,7 +41,7 @@ For other API calls, see the [demo](https://jpeer264.github.io/toastr2/demo.html
 	```js
 	import Toastr from 'toastr2';
 
-	import 'toastr2/dist/toastr.min.css;
+	import 'toastr2/dist/toastr.min.css';
 
 	const toastr = new Toastr();
 	```

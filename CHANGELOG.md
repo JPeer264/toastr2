@@ -1,3 +1,7 @@
+3.0.0-alpha.16 - December, 01 2020
+
+* 72a257f Chore: include src for npmignore for types and sourcemaps (JPeer264)
+
 3.0.0-alpha.15 - April, 13 2020
 
 * 3915ff1 Docs: forgot ' in usage import (JPeer264)

@@ -4,7 +4,7 @@
   "module": "dist/Toastr.es5.js",
   "typings": "dist/types/src/Toastr.d.ts",
   "style": "dist/Toastr.min.css",
-  "version": "3.0.0-alpha.16",
+  "version": "3.0.0-alpha.17",
   "description": "ToastrJS is a JavaScript library for Gnome / Growl type non-blocking notifications. jQuery is required. The goal is to create a simple core library that can be customized and extended.",
   "homepage": "http://www.toastrjs.com",
   "keywords": [

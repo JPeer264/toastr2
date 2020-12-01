@@ -1,3 +1,7 @@
+3.0.0-alpha.17 - December, 01 2020
+
+* e9b0b9e Chore: support case-sensitive platforms (JPeer264)
+
 3.0.0-alpha.16 - December, 01 2020
 
 * 72a257f Chore: include src for npmignore for types and sourcemaps (JPeer264)

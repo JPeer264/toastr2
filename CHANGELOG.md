@@ -1,3 +1,7 @@
+3.0.0-alpha.18 - December, 10 2020
+
+* 49d351f Chore: revert to lowercase .css file | copy scss to dist for sourcemaps (JPeer264)
+
 3.0.0-alpha.17 - December, 01 2020
 
 * e9b0b9e Chore: support case-sensitive platforms (JPeer264)
